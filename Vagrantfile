@@ -11,10 +11,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #  config.vm.network "public_network", :bridge => '300Mbps Wireless USB Adapter'
  
   config.vm.network "forwarded_port", guest: 5001, host: 5001
-  config.vm.network :forwarded_port, guest: 80, host: 8085 
-  config.vm.network :forwarded_port, guest: 9200, host: 9200 
-  config.vm.hostname ="knowman.local"
-#  config.vm.provision "shell", path: "centos_provision.sh"
+  config.vm.network :forwarded_port, guest: 80, host: 8083 
+  config.vm.network :forwarded_port, guest: 9200, host: 9203 
+#  config.vm.hostname ="knowman.local"
+  config.vm.provision "shell", path: "centos_provision.sh"
 end
  
 
