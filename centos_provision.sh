@@ -57,3 +57,4 @@ sudo su vagrant -c 'venv/bin/pip install -r /vagrant/requirements.pip'
 fi
 
 #sudo service apache2 restart
+sudo service httpd restart
