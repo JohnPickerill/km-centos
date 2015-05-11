@@ -1,4 +1,4 @@
-curl -XPUT 'localhost:9200/knowledge_manage' -d '{
+curl -XPUT 'localhost:9203/knowledge_manage' -d '{
     "mappings":{
         "information":{
             "properties":{
@@ -12,7 +12,7 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{
                 "cluster": {"type":"string"},
                 "keywords": {"type":"string", "index_name":"keyword"},
                 "facets": {"type":"nested",
-                           "properties":{"name": {"type":"string"},"foci":{"type":"string","index_name":"focus"}}},
+                           "properties":{"name": {"type":"string", "index":"not_analyzed"},"foci":{"type":"string","index_name":"focus","index":"not_analyzed"}}},
                 "kmlinks": {
                     "properties" : {"id": {"type":"string"}}},
                 "extlinks": {
