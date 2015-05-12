@@ -15,8 +15,8 @@ sudo yum install -y  mod_wsgi
 sudo yum install -y python-devel
 #sudo mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.backup
 #sudo cp /vagrant/apache2.conf /etc/apache2/apache2.conf
-#sudo mv /etc/httpd/httpd.conf /etc/httpd/httpd.conf.backup
-#sudo cp /vagrant/httpd.conf /etc/httpd/httpd.conf
+sudo mv /etc/httpd/httpd.conf /etc/httpd/httpd.conf.backup
+sudo cp /vagrant/httpd.conf /etc/httpd/httpd.conf
 
 #python - flask
 #sudo apt-get -y install python-openssl
@@ -50,7 +50,7 @@ sudo su vagrant -c 'git clone https://github.com/JohnPickerill/km-prototype-a.gi
 cd km-prototype-a
 sudo su vagrant -c 'virtualenv venv' 
 sudo su vagrant -c 'venv/bin/pip install -r /vagrant/requirements.pip'
-
+sudo su vagrant -c 'cp config.py devconfig.py'
  
 
 #    touch /var/log/vmsetup
