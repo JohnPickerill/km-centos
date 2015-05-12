@@ -10,7 +10,8 @@ curl -XPUT 'localhost:9203/knowledge_manage' -d '{
                 "lastupdate": {"type" : "date","format" : "date_time"},
                 "popularity": {"type":"integer"},
                 "cluster": {"type":"string"},
-                "keywords": {"type":"string", "index_name":"keyword"},
+                "master": {"properties":{"where":{"type":"string"}, "filename":{"type":"string"}}},
+                "keywords": {"type":"string", "index_name":"keyword","analyzer":"keyword"},
                 "facets": {"type":"nested",
                            "properties":{"name": {"type":"string", "index":"not_analyzed"},"foci":{"type":"string","index_name":"focus","index":"not_analyzed"}}},
                 "kmlinks": {
