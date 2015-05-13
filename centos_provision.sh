@@ -29,16 +29,26 @@ sudo yum install -y libffi-devel
 #sudo apt-get -y install python
 #sudo apt-get -y install python-pip 
 
-#elasticsearch
+#elasticsearch (already installed on lr box)
 cd ~
 #sudo apt-get -y curl
 #sudo apt-get install -y  openjdk-6-jre
 #wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb
 #dpkg -i elasticsearch-0.90.7.deb
 
+# install marvel and sense
+cd /usr/share/elasticsearch
+sudo bin/plugin -i elasticsearch/marval/latest
+cd /etc/elasticsearch
+sudo elasticsearch.yml elasticsearch.yml.old
+sudo cp /vagrant/elasticsearch.yml .
+sudo service elasticsearch restart
+
+
 #/vagrant/makeindex.bat
 
 #application
+cd ~
 sudo pip install virtualenv 
 sudo mkdir /home/apps
 sudo chmod 777 /home/apps
