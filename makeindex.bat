@@ -3,8 +3,8 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{
         "information":{
             "properties":{
                 "id": {"type":"string", "index":"analyzed","analyzer":"keyword"},
-                "title": {"type":"string", "index":"analyzed", "analyser":"english"},
-                "scope": {"type":"string", "index":"analyzed", "analyser":"english"},
+                "title": {"type":"string", "index":"analyzed", "analyzer":"english"},
+                "scope": {"type":"string", "index":"analyzed", "analyzer":"english"},
                 "type": {"type":"string", "index":"no"},
                 "items": {"properties" : {"item": {"type":"string"},"type": {"type":"string"}}},
                 "lastupdate": {"type" : "date","format" : "date_time"},
