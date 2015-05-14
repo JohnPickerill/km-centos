@@ -2,7 +2,7 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{
     "mappings":{
         "information":{
             "properties":{
-                "id": {"type":"string", "index":"analyzed","analyzer":"keyword"},
+                 "id": {"type":"string", "index":"analyzed","analyzer":"keyword"},
                 "title": {"type":"string", "index":"analyzed", "analyzer":"english"},
                 "scope": {"type":"string", "index":"analyzed", "analyzer":"english"},
                 "type": {"type":"string", "index":"no"},
@@ -14,11 +14,11 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{
                 "keywords": {"type":"string", "index_name":"keyword","analyzer":"keyword"},
                 "facets": {"type":"nested",
                            "properties":{"name": {"type":"string", "index": "not_analyzed"},"foci":{"type":"string","index_name":"focus", "index":"not_analyzed"}}},
-                "kmlinks": {
-                    "properties" : {"id": {"type":"string"}}},
+                 "kmlinks": {
+                    "properties" : {"id": {"type":"string","index":"not_analyzed"}}},
                 "extlinks": {
-                    "properties" : {"name": {"type":"string", "index":"no"},"url":{"type":"string","index":"no"},"scope": {"type":"string"}}},
-                "content": {"type":"string", "index":"no"},
+                     "properties" : {"name": {"type":"string", "index":"no"},"url":{"type":"string","index":"no"},"scope": {"type":"string"}}},
+                 "content": {"type":"string", "index":"no"},
                 "markup": {"type":"string", "index":"no"}
             }
         }
