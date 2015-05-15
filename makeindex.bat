@@ -1,10 +1,53 @@
 curl -XPUT 'localhost:9200/knowledge_manage' -d '{
+       "settings": {
+        "analysis": {
+          "filter": {
+            "english_stop": {
+              "type":       "stop",
+              "stopwords":  "_english_" 
+            },
+            "english_keywords": {
+              "type":       "keyword_marker",
+              "keywords":   ["lllllll"] 
+            },
+            "english_stemmer": {
+              "type":       "stemmer",
+              "language":   "english"
+            },
+            "english_possessive_stemmer": {
+              "type":       "stemmer",
+              "language":   "possessive_english"
+            }
+          },        
+          "analyzer": {
+            "johnp_english": {
+              "tokenizer":  "standard",
+              "filter": [
+                "english_possessive_stemmer",
+                "lowercase",
+                "english_stop",
+                "english_stemmer"
+              ]
+            },
+            "johnp_english_q": {
+              "tokenizer":  "standard",
+              "filter": [
+                "english_possessive_stemmer",
+                "lowercase",
+                "english_stop",
+                "english_keywords",
+                "english_stemmer"
+              ]
+            }
+            }
+        }
+      },   
     "mappings":{
         "information":{
             "properties":{
-                 "id": {"type":"string", "index":"analyzed","analyzer":"keyword"},
-                "title": {"type":"string", "index":"analyzed", "analyzer":"english"},
-                "scope": {"type":"string", "index":"analyzed", "analyzer":"english"},
+                "id": {"type":"string", "index":"analyzed","analyzer":"keyword"},
+                "title": {"type":"string", "index":"analyzed", "index_analyzer":"johnp_english",  "search_analyzer":"johnp_english_q"},
+                "scope": {"type":"string", "index":"analyzed", "index_analyzer":"johnp_english",  "search_analyzer":"johnp_english_q"},
                 "type": {"type":"string", "index":"no"},
                 "items": {"properties" : {"item": {"type":"string"},"type": {"type":"string"}}},
                 "lastupdate": {"type" : "date","format" : "date_time"},

@@ -6,9 +6,16 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+   config.vm.provider "virtualbox" do |v|
+        v.memory = 1024
+        v.cpus = 1
+   end     
+
    config.vm.box = "landregistry/centos-beta"
 #  config.vm.box = "hashicorp/precise64"
 #  config.vm.network "public_network", :bridge => '300Mbps Wireless USB Adapter'
+  
+    
   
 
   config.vm.network "forwarded_port", guest: 5001, host: 5004
