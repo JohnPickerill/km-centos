@@ -40,11 +40,13 @@ cd ~
 cd /usr/share/elasticsearch
 sudo bin/plugin -i elasticsearch/marval/latest
 cd /etc/elasticsearch
-sudo elasticsearch.yml elasticsearch.yml.old
-sudo cp /vagrant/elasticsearch.yml .
+sudo cp /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.old
+sudo cp /vagrant/elasticsearch.yml /etc/elasticsearch
 sudo service elasticsearch restart
-sudo mkdir analysis
-sudo cp /vagrant/synonyms.txt ./analysis
+
+# elasticsearch synonyms
+sudo mkdir /etc/elasticsearch/analysis
+sudo cp /vagrant/synonyms.txt /etc/elasticsearch/analysis
 
 #/vagrant/makeindex.bat
 
