@@ -43,7 +43,8 @@ cd /etc/elasticsearch
 sudo elasticsearch.yml elasticsearch.yml.old
 sudo cp /vagrant/elasticsearch.yml .
 sudo service elasticsearch restart
-
+sudo mkdir analysis
+sudo cp /vagrant/synonyms.txt ./analysis
 
 #/vagrant/makeindex.bat
 

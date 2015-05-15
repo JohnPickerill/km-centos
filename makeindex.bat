@@ -1,14 +1,24 @@
-curl -XPUT 'localhost:9200/knowledge_manage' -d '{
-       "settings": {
+curl -XPUT 'localhost:9200/knowledge_manage' -d '{      "settings": {
         "analysis": {
           "filter": {
+            "synonyms_expand" : {
+                  "synonyms_path" : "analysis/synonym.txt",
+                   "type" : "synonym"
+                },
+            "synonyms_contract" : {
+                   "expand" : 0,
+                   "synonyms" : [
+                      "jpx,charge"
+                   ],
+                   "type" : "synonym"
+             },
             "english_stop": {
               "type":       "stop",
               "stopwords":  "_english_" 
             },
             "english_keywords": {
               "type":       "keyword_marker",
-              "keywords":   ["lllllll"] 
+              "keywords":   ["jpxxx"] 
             },
             "english_stemmer": {
               "type":       "stemmer",
@@ -18,7 +28,7 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{
               "type":       "stemmer",
               "language":   "possessive_english"
             }
-          },        
+          },
           "analyzer": {
             "johnp_english": {
               "tokenizer":  "standard",
@@ -27,21 +37,21 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{
                 "lowercase",
                 "english_stop",
                 "english_stemmer"
-              ]
-            },
-            "johnp_english_q": {
+              ]},
+             "johnp_english_q": {
               "tokenizer":  "standard",
               "filter": [
                 "english_possessive_stemmer",
                 "lowercase",
                 "english_stop",
-                "english_keywords",
+                "synonyms_expand",
                 "english_stemmer"
-              ]
-            }
-            }
-        }
-      },   
+              ]}        
+            
+          }  
+        
+      }
+    },
     "mappings":{
         "information":{
             "properties":{
