@@ -1,0 +1,2 @@
+mkdir /etc/elasticsearch
+sudo cp synonyms.txt /etc/elasticsearch/analysis 

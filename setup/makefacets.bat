@@ -1,0 +1,1 @@
+curl -H "Content-Type: application/json" -XPUT 'http://localhost:9200/knowledge_config/control/facets' -d @facets.json
