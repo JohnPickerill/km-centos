@@ -30,7 +30,7 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{      "settings": {
             }
           },
           "analyzer": {
-            "johnp_english": {
+            "cc_english": {
               "tokenizer":  "standard",
               "filter": [
                 "english_possessive_stemmer",
@@ -38,7 +38,7 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{      "settings": {
                 "english_stop",
                 "english_stemmer"
               ]},
-             "johnp_english_q": {
+             "cc_english_q": {
               "tokenizer":  "standard",
               "filter": [
                 "english_possessive_stemmer",
@@ -46,7 +46,11 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{      "settings": {
                 "english_stop",
                 "synonyms_expand",
                 "english_stemmer"
-              ]}        
+              ]}
+              "cc_keyword": {
+                "tokenizer":  "keyword",
+                "filter": ["lowercase"]
+              }
             
           }  
         
@@ -55,16 +59,18 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{      "settings": {
     "mappings":{
         "information":{
             "properties":{
-                "id": {"type":"string", "index":"analyzed","analyzer":"keyword"},
-                "title": {"type":"string", "index":"analyzed", "index_analyzer":"johnp_english",  "search_analyzer":"johnp_english_q"},
-                "scope": {"type":"string", "index":"analyzed", "index_analyzer":"johnp_english",  "search_analyzer":"johnp_english_q"},
+                "id": {"type":"string", "index":"analyzed","analyzer":"cc_keyword"},
+                "title": {"type":"string", "index":"analyzed", "index_analyzer":"cc_english",  "search_analyzer":"cc_english_q"},
+                "scope": {"type":"string", "index":"analyzed", "index_analyzer":"cc_english",  "search_analyzer":"cc_english_q"},
                 "type": {"type":"string", "index":"no"},
                 "items": {"properties" : {"item": {"type":"string"},"type": {"type":"string"}}},
                 "lastupdate": {"type" : "date","format" : "date_time"},
-                "popularity": {"type":"integer", "index":"analyzed","analyzer":"keyword"},
+                "popularity": {"type":"integer", "index":"analyzed","analyzer":"cc_keyword"},
                 "cluster": {"type":"string", "index": "not_analyzed"},
                 "master": {"properties":{"where":{"type":"string", "index":"no"}, "filename":{"type":"string", "index":"no"}}},
-                "keywords": {"type":"string", "index_name":"keyword","analyzer":"keyword"},
+                "status": {"type":"string", "index":"no"}
+                "author": {"type":"string", "index":"no"}
+                "keywords": {"type":"string", "index_name":"keyword","analyzer":"cc_keyword"},
                 "facets": {"type":"nested",
                            "properties":{"name": {"type":"string", "index": "not_analyzed"},"foci":{"type":"string","index_name":"focus", "index":"not_analyzed"}}},
                  "kmlinks": {
