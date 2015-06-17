@@ -38,7 +38,11 @@ cd km-prototype-a
 sudo su vagrant -c 'virtualenv venv' 
 sudo su vagrant -c 'venv/bin/pip install -r /vagrant/requirements.pip'
 
- 
+#images
+cd /home/apps
+sudo su vagrant -c 'git clone https://github.com/JohnPickerill/km-images.git' 
+sudo su vagrant -c 'ln -s /home/apps/km-images /home/apps/km-prototype-a/application/static/km-images'
+
 
 #    touch /var/log/vmsetup
 fi
