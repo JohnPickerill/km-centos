@@ -1,8 +1,8 @@
-curl -XPUT 'localhost:9200/knowledge_manage' -d '{      "settings": {
+{      "settings": {
         "analysis": {
           "filter": {
             "synonyms_expand" : {
-                  "synonyms_path" : "analysis/synonym.txt",
+                  "synonyms_path" : "analysis/synonyms.txt",
                    "type" : "synonym"
                 },
             "synonyms_contract" : {
@@ -46,7 +46,7 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{      "settings": {
                 "english_stop",
                 "synonyms_expand",
                 "english_stemmer"
-              ]}
+              ]},
               "cc_keyword": {
                 "tokenizer":  "keyword",
                 "filter": ["lowercase"]
@@ -68,8 +68,8 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{      "settings": {
                 "popularity": {"type":"integer", "index":"analyzed","analyzer":"cc_keyword"},
                 "cluster": {"type":"string", "index": "not_analyzed"},
                 "master": {"properties":{"where":{"type":"string", "index":"no"}, "filename":{"type":"string", "index":"no"}}},
-                "status": {"type":"string", "index":"no"}
-                "author": {"type":"string", "index":"no"}
+                "status": {"type":"string", "index":"no"},
+                "author": {"type":"string", "index":"no"},
                 "keywords": {"type":"string", "index_name":"keyword","analyzer":"cc_keyword"},
                 "facets": {"type":"nested",
                            "properties":{"name": {"type":"string", "index": "not_analyzed"},"foci":{"type":"string","index_name":"focus", "index":"not_analyzed"}}},
@@ -82,4 +82,4 @@ curl -XPUT 'localhost:9200/knowledge_manage' -d '{      "settings": {
             }
         }
     }
-}'
+}
