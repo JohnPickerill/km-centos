@@ -71,7 +71,7 @@ sudo su vagrant -c 'git clone https://github.com/JohnPickerill/km-images.git'
 sudo su vagrant -c 'ln -s /home/apps/km-images /home/apps/km-prototype-a/application/static/km-images' 
 
 #    touch /var/log/vmsetup
-
+fi
 
 #sudo service apache2 restart
 sudo service httpd restart
