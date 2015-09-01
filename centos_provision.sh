@@ -69,10 +69,12 @@ sudo su vagrant -c 'cp config.py devconfig.py'
 cd /home/apps
 sudo su vagrant -c 'git clone https://github.com/JohnPickerill/km-images.git' 
 sudo su vagrant -c 'ln -s /home/apps/km-images /home/apps/guide/application/static/km-images' 
+cd guide
 sudo su vagrant -c 'mkdir instance'
+cd instance
 sudo su vagrant -c 'touch config.py'
 
-#    touch /var/log/vmsetup
+touch /var/log/vmsetup
 fi
 
 #sudo service apache2 restart
