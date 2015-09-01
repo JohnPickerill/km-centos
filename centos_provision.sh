@@ -15,8 +15,8 @@ sudo yum install -y  mod_wsgi
 sudo yum install -y python-devel
 #sudo mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.backup
 #sudo cp /vagrant/apache2.conf /etc/apache2/apache2.conf
-sudo mv /etc/httpd/httpd.conf /etc/httpd/httpd.conf.backup
-sudo cp /vagrant/httpd.conf /etc/httpd/httpd.conf
+sudo mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.backup
+sudo cp /vagrant/httpd.conf /etc/httpd/conf/httpd.conf
 
 #python - flask
 #sudo apt-get -y install python-openssl
