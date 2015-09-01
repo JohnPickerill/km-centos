@@ -59,8 +59,8 @@ sudo chown vagrant /home/apps
 cd /home/apps
 #sudo apt-get -y install git
 #sudo yum install -y git
-sudo su vagrant -c 'git clone https://github.com/JohnPickerill/km-prototype-a.git' 
-cd km-prototype-a
+sudo su vagrant -c 'git clone https://github.com/JohnPickerill/guide.git' 
+cd guide
 sudo su vagrant -c 'virtualenv venv' 
 sudo su vagrant -c 'venv/bin/pip install -r /vagrant/requirements.pip'
 sudo su vagrant -c 'cp config.py devconfig.py'
@@ -68,7 +68,7 @@ sudo su vagrant -c 'cp config.py devconfig.py'
 #images
 cd /home/apps
 sudo su vagrant -c 'git clone https://github.com/JohnPickerill/km-images.git' 
-sudo su vagrant -c 'ln -s /home/apps/km-images /home/apps/km-prototype-a/application/static/km-images' 
+sudo su vagrant -c 'ln -s /home/apps/km-images /home/apps/guide/application/static/km-images' 
 
 #    touch /var/log/vmsetup
 fi
