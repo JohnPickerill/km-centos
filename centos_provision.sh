@@ -53,17 +53,22 @@ sudo cp /vagrant/synonyms.txt /etc/elasticsearch/analysis
 #application
 cd ~
 sudo pip install virtualenv 
+#sudo adduser -g apache apps
+#sudo passwd apps km1234
 sudo mkdir /home/apps
 sudo chmod 777 /home/apps
 sudo chown vagrant /home/apps
 cd /home/apps
+sudo su vagrant -c "mkdir demo"
+cd demo
 #sudo apt-get -y install git
 #sudo yum install -y git
 sudo su vagrant -c 'git clone https://github.com/JohnPickerill/guide.git' 
 cd guide
 sudo su vagrant -c 'virtualenv venv' 
 sudo su vagrant -c 'venv/bin/pip install -r /vagrant/requirements.pip'
-sudo su vagrant -c 'cp config.py devconfig.py'
+sudo su vagrant -c 'mkdir instance'
+sudo su vagrant -c 'cp default_config.py instance/config.py'
 
 #images
 cd /home/apps
