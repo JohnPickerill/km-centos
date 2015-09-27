@@ -69,15 +69,16 @@ sudo su vagrant -c 'virtualenv venv'
 sudo su vagrant -c 'venv/bin/pip install -r /vagrant/requirements.pip'
 sudo su vagrant -c 'mkdir instance'
 sudo su vagrant -c 'cp default_config.py instance/config.py'
+sudo su vagrant -c 'mkdir instance'
+cd instance
+sudo su vagrant -c 'touch config.py'
 
 #images
 cd /home/apps
 sudo su vagrant -c 'git clone https://github.com/JohnPickerill/km-images.git' 
 sudo su vagrant -c 'ln -s /home/apps/km-images /home/apps/guide/application/static/km-images' 
-cd guide
-sudo su vagrant -c 'mkdir instance'
-cd instance
-sudo su vagrant -c 'touch config.py'
+
+
 
 touch /var/log/vmsetup
 fi
