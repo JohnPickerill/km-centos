@@ -4,9 +4,14 @@
 #sudo apt-get -y update
 #sudo yum -y update
 
-
 if [ ! -f /var/log/vmsetup ];
 then
+
+
+
+
+
+
 # apache
 #sudo apt-get -y install apache2
 sudo yum install -y httpd
@@ -59,7 +64,7 @@ sudo mkdir /home/apps
 sudo chmod 777 /home/apps
 sudo chown vagrant /home/apps
 cd /home/apps
-sudo su vagrant -c "mkdir demo"
+sudo su vagrant -c "mkdir demo" 
 cd demo
 #sudo apt-get -y install git
 #sudo yum install -y git
@@ -79,10 +84,66 @@ makelocalindex.sh
 
 
 
+
+# to act as syslog host
+#sudo yum -y install rsyslog
+#sudo sed -i.bak 's/\#\$ModLoad im/\$ModLoad im/' /etc/rsyslog.conf
+#sudo sed -i.bak 's/\#\$UDPServerRun 514/\$UDPServerRun 514/' /etc/rsyslog.conf
+#sudo sed -i.bak 's/\#\$InputTCPServerRun 514/\$InputTCPServerRun 514/' /etc/rsyslog.conf
+
+#sudo service rsyslog restart
+
 #images
-cd /home/apps
-sudo su vagrant -c 'git clone https://github.com/JohnPickerill/km-images.git' 
-sudo su vagrant -c 'ln -s /home/apps/km-images /home/apps/guide/application/static/km-images' 
+#cd /home/apps
+#sudo su vagrant -c 'git clone https://github.com/JohnPickerill/km-images.git' 
+#sudo su vagrant -c 'ln -s /home/apps/km-images /home/apps/guide/application/static/km-images' 
+
+
+#firewall
+sudo yum install -y iptables
+#temporarily accept input make sure we don't get locked out
+iptables -P INPUT ACCEPT
+#clear
+sudo iptables -F
+#basic protectiob block null packets, syn flood, xmas tree
+sudo iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
+sudo iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
+sudo iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
+#open up ports
+#localhost
+sudo iptables -A INPUT -i lo -j ACCEPT
+sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# SSH
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# web
+sudo iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+sudo iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+# ssh change to something other than port 22 and limit incoming
+#iptables -A INPUT -p tcp -s YOUR_IP_ADDRESS -m tcp --dport 22 -j ACCEPT
+
+#elasticsearch
+sudo iptables -A INPUT -p tcp -m tcp --dport 9200 -j ACCEPT
+
+# syslog
+sudo iptables -A INPUT -p tcp -m tcp --dport 514 -j ACCEPT
+
+# block incoming allow outgoing , stop forwarding
+sudo iptables FORWARD DROP
+sudo iptables -P OUTPUT ACCEPT
+sudo iptables -P INPUT DROP
+
+# logging dropped incoming packets to /var/log/messages 
+sudo iptables -N LOGGING
+sudo iptables -A INPUT -j LOGGING
+sudo iptables -A LOGGING -m limit --limit 2/min -j LOG --log-prefix "IPTables-Dropped: " --log-level 4
+sudo iptables -A LOGGING -j DROP
+
+
+# save iptables and restart firewall
+sudo iptables-save | sudo tee /etc/sysconfig/iptables
+sudo service iptables restart
 
 
 
