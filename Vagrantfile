@@ -14,9 +14,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    config.vm.box = "landregistry/centos-beta"
 #  config.vm.box = "hashicorp/precise64"
 #  config.vm.network "public_network", :bridge => '300Mbps Wireless USB Adapter'
-   config.vm.network "public_network", ip:  "192.168.1.10"	
-    
-  
+   config.vm.network "public_network", ip: "192.168.1.201"
+
+# default router
+  config.vm.provision "shell",
+		run: "always",
+		inline: "route add default gw 192.168.1.1"  
+		
+# delete default gw on eth0
+	config.vm.provision "shell",
+		run: "always",
+		inline: "eval `route -n | awk '{ if ($8 ==\"enp0s3\" && $2 != \"0.0.0.0\") print \"route del default gw \" $2; }'`" 
+
 
   config.vm.network "forwarded_port", guest: 5001, host: 5004
   config.vm.network :forwarded_port, guest: 80, host: 10080

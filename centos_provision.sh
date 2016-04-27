@@ -18,6 +18,10 @@ sudo yum install -y httpd
 #sudo apt-get -y install libapache2-mod-wsgi python-dev 
 sudo yum install -y  mod_wsgi 
 sudo yum install -y python-devel
+#https
+sudo yum install mod_ssl openssl
+
+
 #sudo mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.backup
 #sudo cp /vagrant/apache2.conf /etc/apache2/apache2.conf
 sudo mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.backup
@@ -69,21 +73,12 @@ cd demo
 #sudo apt-get -y install git
 #sudo yum install -y git
 sudo su vagrant -c 'git clone https://github.com/JohnPickerill/guide.git' 
-cd guide
-sudo su vagrant -c 'virtualenv venv' 
-sudo su vagrant -c 'venv/bin/pip install -r /vagrant/requirements.pip'
-sudo su vagrant -c 'mkdir instance'
-sudo su vagrant -c 'cp default_config.py instance/config.py'
-sudo su vagrant -c 'mkdir instance'
-cd instance
-sudo su vagrant -c 'touch config.py'
-# create indexes in elasticsearch
-cd ../setup
-makelocalindex.sh
-
-
-
-
+cd guide/setup
+sudo su vagrant -c 'source cfg_jinja.sh'
+sudo su vagrant -c 'source cfg_python.sh'
+sudo su vagrant -c 'source cfg_elastic.sh'
+#makelocalindex.sh
+ 
 
 # to act as syslog host
 #sudo yum -y install rsyslog
@@ -98,11 +93,24 @@ makelocalindex.sh
 #sudo su vagrant -c 'git clone https://github.com/JohnPickerill/km-images.git' 
 #sudo su vagrant -c 'ln -s /home/apps/km-images /home/apps/guide/application/static/km-images' 
 
-
 #firewall
 sudo yum install -y iptables
+sudo yum install -y iptables-services
+#disable firewall d and enable iptables
+sudo systemctl mask firewalld
+sudo systemctl enable iptables
+sudo systemctl enable ip6tables
+sudo systemctl stop firewalld
+sudo systemctl start iptables
+sudo systemctl start ip6tables
+
+fi
+
+# do the rest every time
+
+#firewall
 #temporarily accept input make sure we don't get locked out
-iptables -P INPUT ACCEPT
+sudo iptables -P INPUT ACCEPT
 #clear
 sudo iptables -F
 #basic protectiob block null packets, syn flood, xmas tree
@@ -146,10 +154,6 @@ sudo iptables-save | sudo tee /etc/sysconfig/iptables
 sudo service iptables restart
 
 
-
-
-touch /var/log/vmsetup
-fi
-
 #sudo service apache2 restart
 sudo service httpd restart
+sudo service elasticsearch restart
