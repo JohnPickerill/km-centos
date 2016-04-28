@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
-
  
 #sudo apt-get -y update
-#sudo yum -y update
+sudo yum -y update
 
+ 
 if [ ! -f /var/log/vmsetup ];
 then
-
-
-
-
+ 
 
 
 # apache
@@ -19,7 +16,7 @@ sudo yum install -y httpd
 sudo yum install -y  mod_wsgi 
 sudo yum install -y python-devel
 #https
-sudo yum install mod_ssl openssl
+sudo yum install -y  mod_ssl openssl
 
 
 #sudo mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.backup
@@ -72,12 +69,19 @@ sudo su vagrant -c "mkdir demo"
 cd demo
 #sudo apt-get -y install git
 #sudo yum install -y git
+
+#guide
 sudo su vagrant -c 'git clone https://github.com/JohnPickerill/guide.git' 
 cd guide/setup
 sudo su vagrant -c 'source cfg_jinja.sh'
 sudo su vagrant -c 'source cfg_python.sh'
 sudo su vagrant -c 'source cfg_elastic.sh'
-#makelocalindex.sh
+#guidemgr
+cd /home/apps/demo
+sudo su vagrant -c 'git clone https://github.com/JohnPickerill/guidemgr.git'
+cd guidemgr/setup
+sudo su vagrant -c 'source cfg_python.sh'
+
  
 
 # to act as syslog host
@@ -104,7 +108,7 @@ sudo systemctl stop firewalld
 sudo systemctl start iptables
 sudo systemctl start ip6tables
 
-fi
+
 
 # do the rest every time
 
@@ -149,8 +153,14 @@ sudo iptables -A LOGGING -m limit --limit 2/min -j LOG --log-prefix "IPTables-Dr
 sudo iptables -A LOGGING -j DROP
 
 
-# save iptables and restart firewall
+# save iptables and 
 sudo iptables-save | sudo tee /etc/sysconfig/iptables
+
+touch /var/log/vmsetup
+
+fi
+
+#restart firewall
 sudo service iptables restart
 
 
