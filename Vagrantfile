@@ -13,7 +13,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
    config.vm.box = "landregistry/centos-beta"
 #  config.vm.box = "hashicorp/precise64"
-   config.vm.network "public_network", :bridge => '300Mbps Wireless USB Adapter'
+    config.vm.network "public_network", :bridge => '300Mbps Wireless USB Adapter'
+#    config.vm.network  "private_network"
 
 #  config.vm.network "public_network", ip: "192.168.1.201"
 # default router
