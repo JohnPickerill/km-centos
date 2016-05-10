@@ -1,3 +1,5 @@
-tmp.log
 *.log
+*.tmp
+tmp.*
 .vagrant
+Vagrantfile

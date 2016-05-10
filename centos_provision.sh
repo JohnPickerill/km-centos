@@ -52,6 +52,7 @@ sudo service elasticsearch restart
 
 # elasticsearch synonyms
 sudo mkdir /etc/elasticsearch/analysis
+#TODO this isn't here anymore
 sudo cp /vagrant/synonyms.txt /etc/elasticsearch/analysis
 
 #/vagrant/makeindex.bat
@@ -73,8 +74,8 @@ cd demo
 #guide
 sudo su vagrant -c 'git clone https://github.com/JohnPickerill/guide.git' 
 cd guide/setup
-sudo su vagrant -c 'source cfg_jinja.sh'
 sudo su vagrant -c 'source cfg_python.sh'
+sudo su vagrant -c 'source cfg_jinja.sh'
 sudo su vagrant -c 'source cfg_elastic.sh'
 #guidemgr
 cd /home/apps/demo
