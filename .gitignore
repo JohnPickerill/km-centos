@@ -1,3 +1,6 @@
 tmp.log
 *.log
 .vagrant
+Vagrantfile
+*.tmp
+tmp.*
