@@ -16,6 +16,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #    config.vm.network "public_network", :bridge => '300Mbps Wireless USB Adapter'
 #    config.vm.network  "private_network"
 
+  # config for vagrant-vbguest plugin  
+  # set auto_update to false, if you do NOT want to check the correct 
+  # additions version when booting this machine
+  # config.vbguest.auto_update = false
+
+
   config.vm.network "public_network", ip: "192.168.1.201"
 # default router
   config.vm.provision "shell",
