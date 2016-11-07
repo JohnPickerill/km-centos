@@ -15,6 +15,9 @@ sudo yum install -y httpd
 #sudo apt-get -y install libapache2-mod-wsgi python-dev 
 sudo yum install -y  mod_wsgi 
 sudo yum install -y python-devel
+#this might require epel
+sudo yum install redis
+sudo sbin/chkconfig/redis on
 #https
 sudo yum install -y  mod_ssl openssl
 
@@ -168,3 +171,4 @@ sudo service iptables restart
 #sudo service apache2 restart
 sudo service httpd restart
 sudo service elasticsearch restart
+sudo service redis restart
